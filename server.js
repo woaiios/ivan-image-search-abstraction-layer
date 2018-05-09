@@ -14,6 +14,9 @@ app.get("/", function (request, response) {
 
 app.get("/api/imagesearch/:id", function (req, res) {
   const keyWord = req.params.id
+  if (keyWord.length > 32) {
+    res.send("Error: q is too long")
+  }
   const url = buildSearchURL(keyWord, req.query.offset)
   axios.get(url)
     .then(response => {
